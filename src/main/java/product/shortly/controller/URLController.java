@@ -1,6 +1,8 @@
 package product.shortly.controller;
 
 import java.net.URI;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
@@ -24,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import product.shortly.client.RangeCreator;
 import product.shortly.entity.ShortUrl;
 import product.shortly.entity.ShortUrlRepository;
+import product.shortly.utils.BasicUtils;
 
 @RestController
 public class URLController {
@@ -39,6 +42,7 @@ public class URLController {
 	@PostMapping(value = "/short", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String,String>> shortenUrl(@RequestBody String input) {
 		logger.info("POST:shortenURL");
+		String shortUrl = BasicUtils.getEnvVariable().get("shortURL");
 		Map<String,String> mapOutput = new HashMap<>();
 		ResponseEntity<Map<String,String>> resp = new ResponseEntity<>(mapOutput,  HttpStatus.OK);
 		ObjectMapper mapper = new ObjectMapper();
@@ -47,10 +51,11 @@ public class URLController {
 			Map<String, String> map = mapper.readValue(input, Map.class);
 			url = map.get("url");
 			shortUrlPrefix = rangeCreator.getRange().poll();
-			ShortUrl obj = new ShortUrl(); 
-			obj.setLongUrl(url);
+			Timestamp now = Timestamp.from(Instant.now());
+			ShortUrl obj = new ShortUrl(shortUrlPrefix,url,now,now); 
 			obj.setShortUrl(shortUrlPrefix);
-			mapOutput.put("shortly", "https://shrtly.com/" + shortUrlPrefix);
+			obj.setLongUrl(url);
+			mapOutput.put("shortly", shortUrl + shortUrlPrefix);
 			mapOutput.put("originalURL", url);
 			repo.saveShortUrl(obj);
 		} catch (JsonProcessingException e) {

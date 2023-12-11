@@ -3,5 +3,6 @@ product\shortly\entity\ShortUrl.class
 product\shortly\config\DynamoDBConfiguration.class
 product\shortly\client\RangeCreator.class
 product\shortly\controller\URLController.class
+product\shortly\utils\BasicUtils.class
 product\shortly\client\URLRangeClient.class
 product\shortly\ShortlyApplication.class

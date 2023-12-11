@@ -29,7 +29,8 @@ public class RangeCreator {
 	}
 
 	public Queue<String> getRange() {
-
+		// TODO two threads come and check if q is not null and return q .
+		//but q has just one element remaining
 		if (queue == null || queue.isEmpty()) {
 			synchronized (lock) {
 				try {
@@ -62,10 +63,9 @@ public class RangeCreator {
 		if (queue == null || queue.isEmpty()) {
 			queue = queue == null ?  new ConcurrentLinkedQueue<>(): queue;
 			String prefix = "aaaaaa";
-			char st = 'a';
-			for (int i = 0; i < 26; i++) {
-				st = (char) (st + i);
-				queue.add(prefix + st);
+			
+			for (char st = 'a'; st <='z' ; st++) {
+				queue.add(prefix +"" +st);
 			}
 		}
 	}
@@ -73,5 +73,4 @@ public class RangeCreator {
 	public Queue<String> getQueue() {
 		return queue;
 	}
-
 }
