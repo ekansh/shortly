@@ -1,4 +1,8 @@
 # shortly
+The purpose of this service is to pre-generate range of alias that the controller serving the create alias and resolve alias can use. This logic can be put in the shortly service and executed during bootstrap time. However, if there is complex logic in pre-generating ranges then time to spin up EC2 will increase.
+
+Full story [here](https://medium.com/@mail.ekansh/shortly-aws-implementation-d76bff78550e)
+
 
 ## Building application
 Built using: 
