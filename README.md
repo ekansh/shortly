@@ -3,6 +3,8 @@ The purpose of this service is to serve the create alias and resolve. It depends
 
 Full story [here](https://medium.com/@mail.ekansh/shortly-aws-implementation-d76bff78550e)
 
+Note: the purpose of this code base was to prototype and not to create production ready code.
+
 
 ## Building application
 Built using: 
